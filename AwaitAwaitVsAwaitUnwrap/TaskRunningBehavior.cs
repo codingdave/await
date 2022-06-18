@@ -25,7 +25,7 @@ namespace AsyncAsyncVsUnwrap
 
         public async Task RunShortTaskAsync()
         {
-            var shortRunningTask = RunAsync(() => Task.CompletedTask);
+            var shortRunningTask = RunAsync(() => Task.Run(() => { }));
             Helpers.TreadTaskInfo($"{nameof(shortRunningTask)}", shortRunningTask);
             await shortRunningTask.ConfigureAwait(_continueOnCapturedContext);
             Helpers.TreadTaskInfo($"awaited {nameof(shortRunningTask)}", shortRunningTask);
