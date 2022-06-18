@@ -42,7 +42,7 @@ public class TaskTest
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public async void ContinueWithShouldHavePreviousTaskResult(bool continueOnCapturedContext)
+    public async Task ContinueWithShouldHavePreviousTaskResult(bool continueOnCapturedContext)
     {
         // arrange
         var o = new object();
@@ -57,7 +57,7 @@ public class TaskTest
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public async void ContinueWithShouldReceivePreviousTask(bool continueOnCapturedContext)
+    public async Task ContinueWithShouldReceivePreviousTask(bool continueOnCapturedContext)
     {
         // arrange
         Task task1 = Task.Run(() => { });
@@ -71,7 +71,7 @@ public class TaskTest
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public async void TaskShouldReturnSameObject(bool continueOnCapturedContext)
+    public async Task TaskShouldReturnSameObject(bool continueOnCapturedContext)
     {
         // arrange
         var o = new object();
@@ -81,5 +81,35 @@ public class TaskTest
         Assert.Same(o, await task1.ConfigureAwait(continueOnCapturedContext));
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task AwaitTaskShouldReturnSameTask(bool continueOnCapturedContext)
+    {
+        // arrange
+        Task task = Task.Run(() => { });
+        Task<Task> taskOfTask = task.ContinueWith(t => t);
+        // act
+        var awaitedTask = await taskOfTask.ConfigureAwait(continueOnCapturedContext);
+        // assert
+        Assert.Same(task, awaitedTask);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task UnwrapTaskShouldReturnSameTask(bool continueOnCapturedContext)
+    {
+        // arrange
+        Task task = Task.Run(() => { });
+        Task<Task> taskOfTask = task.ContinueWith(t => t);
+        // act
+        var awaitedTask = taskOfTask.Unwrap();
+        // assert
+        Assert.Same(task, awaitedTask);
+    }
+    // TODO: More details on Unwrap
+    // TODO: Add await await
+    // TODO: Add await unwrap
     // TODO: test TaskScheduler
 }
