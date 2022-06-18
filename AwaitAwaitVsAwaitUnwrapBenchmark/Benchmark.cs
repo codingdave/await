@@ -13,14 +13,14 @@ namespace AsyncAsyncVsUnwrap
     public class Benchmark
     {
         [Benchmark(Description = "await + Unwrap()")]
-        public void AwaitUnwrap() => _ = RunAwaitUnwrap().GetAwaiter().GetResult();
+        public void AwaitUnwrap() => RunAwaitUnwrap().GetAwaiter().GetResult();
 
-        private async Task<int> RunAwaitUnwrap() => await GetTaskOfTask().Unwrap().ConfigureAwait(false);
+        private async Task RunAwaitUnwrap() => await GetTaskOfTask().Unwrap().ConfigureAwait(false);
 
         [Benchmark(Description = "await await")]
-        public void AwaitAwait() => _ = RunAwaitAwait().GetAwaiter().GetResult();
-        private async Task<int> RunAwaitAwait() => await (await GetTaskOfTask().ConfigureAwait(false)).ConfigureAwait(false);
+        public void AwaitAwait() => RunAwaitAwait().GetAwaiter().GetResult();
+        private async Task RunAwaitAwait() => await (await GetTaskOfTask().ConfigureAwait(false)).ConfigureAwait(false);
 
-        private Task<Task<int>> GetTaskOfTask() => Task.Run(() => 1).ContinueWith((m) => m, TaskScheduler.Default);
+        private Task<Task> GetTaskOfTask() => Task.Run(() => { }).ContinueWith((m) => m, TaskScheduler.Default);
     }
 }
