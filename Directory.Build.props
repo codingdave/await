@@ -1,0 +1,13 @@
+<Project>
+ <PropertyGroup>
+	  <LangVersion>preview</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
+
+ </PropertyGroup>
+</Project>
