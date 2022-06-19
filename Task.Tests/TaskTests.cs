@@ -42,13 +42,28 @@ public class TaskTest
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public async Task ContinueWithShouldHavePreviousTaskResult(bool continueOnCapturedContext)
+    public async Task ContinueWithAndTaskSchedulerDefaultShouldHavePreviousTaskResult(bool continueOnCapturedContext)
     {
         // arrange
         var o = new object();
         Task<object> task1 = Task.Run(() => o);
         // act
         var continueWithTask = task1.ContinueWith((t) => t.Result, TaskScheduler.Default);
+        var continueWithTaskResult = await continueWithTask.ConfigureAwait(continueOnCapturedContext);
+        // assert
+        Assert.Same(o, continueWithTaskResult);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task ContinueWithAndTaskSchedulerCurrentShouldHavePreviousTaskResult(bool continueOnCapturedContext)
+    {
+        // arrange
+        var o = new object();
+        Task<object> task1 = Task.Run(() => o);
+        // act
+        var continueWithTask = task1.ContinueWith((t) => t.Result, TaskScheduler.Current);
         var continueWithTaskResult = await continueWithTask.ConfigureAwait(continueOnCapturedContext);
         // assert
         Assert.Same(o, continueWithTaskResult);
@@ -104,12 +119,20 @@ public class TaskTest
         Task task = Task.Run(() => { });
         Task<Task> taskOfTask = task.ContinueWith(t => t);
         // act
-        var awaitedTask = taskOfTask.Unwrap();
+        var unwrappedTask = taskOfTask.Unwrap();
         // assert
-        Assert.Same(task, awaitedTask);
+        Assert.Same(task, await taskOfTask.ConfigureAwait(continueOnCapturedContext));
     }
-    // TODO: More details on Unwrap
-    // TODO: Add await await
-    // TODO: Add await unwrap
-    // TODO: test TaskScheduler
+
+    [Fact]
+    public void UnwrapTaskShouldBeDifferentTask()
+    {
+        // arrange
+        Task task = Task.Run(() => { });
+        Task<Task> taskOfTask = task.ContinueWith(t => t);
+        // act
+        var unwrappedTask = taskOfTask.Unwrap();
+        // assert
+        Assert.NotEqual(task, unwrappedTask);
+    }
 }
