@@ -127,6 +127,8 @@ csharp_preserve_single_line_blocks = true
 
 # CA1014: Mark assemblies with CLSCompliant
 dotnet_diagnostic.CA1014.severity = none
+dotnet_diagnostic.CA1822.severity = none
+dotnet_diagnostic.CA1303.severity = none
 
 [*.vb]
 # Modifier preferences
