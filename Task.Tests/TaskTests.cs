@@ -103,7 +103,7 @@ public class TaskTest
     {
         // arrange
         Task task = Task.Run(() => { });
-        Task<Task> taskOfTask = task.ContinueWith(t => t);
+        Task<Task> taskOfTask = task.ContinueWith(t => t, TaskScheduler.Default);
         // act
         var awaitedTask = await taskOfTask.ConfigureAwait(continueOnCapturedContext);
         // assert
@@ -117,7 +117,7 @@ public class TaskTest
     {
         // arrange
         Task task = Task.Run(() => { });
-        Task<Task> taskOfTask = task.ContinueWith(t => t);
+        Task<Task> taskOfTask = task.ContinueWith(t => t, TaskScheduler.Default);
         // act
         var unwrappedTask = taskOfTask.Unwrap();
         // assert
@@ -129,7 +129,7 @@ public class TaskTest
     {
         // arrange
         Task task = Task.Run(() => { });
-        Task<Task> taskOfTask = task.ContinueWith(t => t);
+        Task<Task> taskOfTask = task.ContinueWith(t => t, TaskScheduler.Default);
         // act
         var unwrappedTask = taskOfTask.Unwrap();
         // assert

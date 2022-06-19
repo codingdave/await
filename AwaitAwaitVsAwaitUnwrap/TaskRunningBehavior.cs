@@ -61,7 +61,7 @@ namespace AsyncAsyncVsUnwrap
             Helpers.WriteLine($" - tasks created - ");
         }
 
-        private Task<Task> GetTaskOfTask(Task originalTask)
+        private static Task<Task> GetTaskOfTask(Task originalTask)
         {
             Task<Task> continueWithTask = null;
             continueWithTask = originalTask.ContinueWith((previousTask) =>
