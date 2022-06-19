@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task.Tests", "Task.Tests\Ta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncBreakfast", "AsyncBreakfast\AsyncBreakfast.csproj", "{45259DFD-0C90-4831-80C3-1851161C301F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReturnTaskVsReturnAwaitBenchmark", "ReturnTaskVsReturnAwaitBenchmark\ReturnTaskVsReturnAwaitBenchmark.csproj", "{BFAA96B3-0C26-4741-8258-64BC0274C42C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,18 @@ Global
 		{45259DFD-0C90-4831-80C3-1851161C301F}.Release|x64.Build.0 = Release|Any CPU
 		{45259DFD-0C90-4831-80C3-1851161C301F}.Release|x86.ActiveCfg = Release|Any CPU
 		{45259DFD-0C90-4831-80C3-1851161C301F}.Release|x86.Build.0 = Release|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Debug|x64.Build.0 = Debug|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Debug|x86.Build.0 = Debug|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Release|x64.ActiveCfg = Release|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Release|x64.Build.0 = Release|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Release|x86.ActiveCfg = Release|Any CPU
+		{BFAA96B3-0C26-4741-8258-64BC0274C42C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
