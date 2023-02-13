@@ -297,7 +297,7 @@ namespace Xunit
 		{
 			GuardArgumentNotNull(nameof(collection), collection);
 
-			// Behave identical to ISet.Contains
+			// Do not forward to DoesNotContain(expected, collection.Keys) as we want the default SDK behavior
 			if (!collection.Contains(expected))
 				throw new ContainsException(expected, collection);
 		}
@@ -447,6 +447,24 @@ namespace Xunit
 			foreach (var item in collection)
 				if (filter(item))
 					throw new DoesNotContainException("(filter expression)", collection);
+		}
+
+		/// <summary>
+		/// Verifies that an ISet does not contain a given item.
+		/// </summary>
+		/// <typeparam name="T">The type of the object to be compared</typeparam>
+		/// <param name="expected">The object that is expected not to be in the collection</param>
+		/// <param name="collection">The collection to be inspected</param>
+		/// <exception cref="DoesNotContainException">Thrown when the object is present inside the container</exception>
+		public static void DoesNotContain<T>(
+			T expected,
+			ISet<T> collection)
+		{
+			GuardArgumentNotNull(nameof(collection), collection);
+
+			// Do not forward to DoesNotContain(expected, collection.Keys) as we want the default SDK behavior
+			if (collection.Contains(expected))
+				throw new DoesNotContainException(expected, collection);
 		}
 
 		/// <summary>
