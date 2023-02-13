@@ -458,16 +458,18 @@ namespace Xunit
 		/// <param name="collection">The collection to be inspected.</param>
 		/// <exception cref="DoesNotContainException">Thrown when the object is present in the collection</exception>
 		public static void DoesNotContain<TKey, TValue>(
-			TKey expected,
-			IReadOnlyDictionary<TKey, TValue> collection)
+				TKey expected,
+				IReadOnlyDictionary<TKey, TValue> collection)
 #if XUNIT_NULLABLE
-				where TKey : notnull
+					where TKey : notnull
 #endif
 		{
 			GuardArgumentNotNull(nameof(expected), expected);
 			GuardArgumentNotNull(nameof(collection), collection);
 
-			DoesNotContain(expected, collection.Keys);
+			// Do not forward to DoesNotContain(expected, collection.Keys) as we want the default SDK behavior
+			if (collection.ContainsKey(expected))
+				throw new ContainsException(expected, collection.Keys);
 		}
 
 		/// <summary>
@@ -488,7 +490,9 @@ namespace Xunit
 			GuardArgumentNotNull(nameof(expected), expected);
 			GuardArgumentNotNull(nameof(collection), collection);
 
-			DoesNotContain(expected, collection.Keys);
+			// Do not forward to DoesNotContain(expected, collection.Keys) as we want the default SDK behavior
+			if (collection.ContainsKey(expected))
+				throw new ContainsException(expected, collection.Keys);
 		}
 
 		/// <summary>
